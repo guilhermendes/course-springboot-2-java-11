@@ -3,12 +3,14 @@ package com.curso.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.curso.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.curso.entities.User;
 import com.curso.repositories.UserRepository;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class UserService {
@@ -19,9 +21,9 @@ public class UserService {
 		return repository.findAll();
 	}
 	
-	public User fundById(Long id) {
+	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
