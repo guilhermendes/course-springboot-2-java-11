@@ -1,9 +1,13 @@
 package com.curso.resources.exceptions;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.time.Instant;
 
 public class StandardError implements Serializable {
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm'Z'", timezone = "GMT")
 
     private static final long serialVersionUID = 1L;
     private Instant timestamp;
